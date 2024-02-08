@@ -1,0 +1,58 @@
+version: '3.1'
+
+services:
+  db-local-postgres:
+    container_name: db-local-postgres
+    image: postgres
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=12345
+      - POSTGRES_DB=postgres
+    ports:
+      - '5432:5432'
+    volumes:
+      - ./db/data:/var/lib/postgresql/data
+
+  zookeeper:
+    image: confluentinc/cp-zookeeper:latest
+    container_name: kafka-zookeeper
+    restart: always
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+    ports:
+      - 22181:2181
+
+  kafka:
+    image: confluentinc/cp-kafka:latest
+    container_name: kafka-kafka
+    restart: always
+    depends_on:
+      - zookeeper
+    ports:
+      - 29092:29092
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092,PLAINTEXT_HOST://localhost:29092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+
+  kafka-topics-generator:
+    container_name: kafka-topics-generator
+    image: confluentinc/cp-kafka:latest
+    restart: on-failure
+    depends_on:
+      - kafka
+    command: >
+      bash -c
+        "echo Waiting for Kafka to be ready... && \
+        cub kafka-ready -b kafka:9092 1 30 && \
+        /bin/kafka-topics --create --topic messages --if-not-exists --bootstrap-server kafka:9092 &&
+        echo "Finished!"
+        "
+volumes:
+  db:
+    driver: local
