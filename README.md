@@ -5,22 +5,28 @@
 This project is simple messaging system between users (POC).
 
 ## Built With
+
 * Java
 * Spring boot
 * Postgres
 * Kafka
 * Docker
+* DB Flyway migrations
 
 ## Getting Started
 
 ### Prerequisites
+
 To run this project, Docker shall be up and running
 
 ### Installation
+
 ```
 $ docker compose up
 ```
+
 ### Usage
+
 All you need at this stage is to run the application
 
 ### Functionalities
@@ -35,4 +41,5 @@ All you need at this stage is to run the application
 
 - [x] Use Kafka for sending messages
 - [x] Easy deploying
-- [ ] Add tests 
+- [ ] Add tests
+- [ ] OpenApi specs 

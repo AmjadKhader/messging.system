@@ -2,6 +2,7 @@ package messaging.system.controller;
 
 import messaging.system.exception.AccountAlreadyExistException;
 import messaging.system.exception.GeneralException;
+import messaging.system.exception.WrongInputException;
 import messaging.system.model.user.User;
 import messaging.system.response.user.UserCreationResponse;
 import messaging.system.service.UserService;
@@ -15,8 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Objects;
-
-import static org.apache.logging.log4j.util.Strings.isBlank;
 
 @RestController()
 @RequestMapping("/api/messaging-system/user")
@@ -35,17 +34,11 @@ public class UserController {
                         HttpStatus.BAD_REQUEST);
             }
 
-            if (isBlank(user.getUsername()) || isBlank(user.getNickname())) {
-                return new ResponseEntity<>(new UserCreationResponse(null,
-                        "Username or nickname is empty", false),
-                        HttpStatus.BAD_REQUEST);
-            }
-
             return new ResponseEntity<>(new UserCreationResponse(
                     userService.createUser(user), "", true),
                     HttpStatus.OK);
 
-        } catch (AccountAlreadyExistException e) {
+        } catch (AccountAlreadyExistException | WrongInputException e) {
             return new ResponseEntity<>(new UserCreationResponse(null, e.getMessage(), false),
                     HttpStatus.BAD_REQUEST);
         } catch (GeneralException e) {

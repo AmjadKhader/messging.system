@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Objects;
 
-import static messaging.system.constant.Constants.MESSAGE_IS_BLANK;
-import static messaging.system.constant.Constants.SAME_SENDER_AND_RECEIVER;
+import static messaging.system.constant.Constants.MESSAGE_IS_BLANK_EXCEPTION_MESSAGE;
+import static messaging.system.constant.Constants.SAME_SENDER_AND_RECEIVER_EXCEPTION_MESSAGE;
 
 @RestController()
 @RequestMapping("/api/messaging-system/message")
@@ -33,14 +33,15 @@ public class MessageController {
     ) {
         try {
             if (Objects.isNull(messageBody) || messageBody.getMessage().isBlank()) {
-                throw new MessagesException(MESSAGE_IS_BLANK);
+                throw new MessagesException(MESSAGE_IS_BLANK_EXCEPTION_MESSAGE);
             }
             if (senderId.equals(messageBody.getReceiver())) {
-                throw new MessagesException(SAME_SENDER_AND_RECEIVER);
+                throw new MessagesException(SAME_SENDER_AND_RECEIVER_EXCEPTION_MESSAGE);
             }
-            return new ResponseEntity<>(new SendMessageResponse(
-                    messageService.sendMessage(senderId, messageBody.getReceiver(), messageBody.getMessage()), "", true),
-                    HttpStatus.NO_CONTENT);
+
+            messageService.sendMessage(senderId, messageBody.getReceiver(), messageBody.getMessage());
+
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 
         } catch (UserNotFoundException | MessagesException e) {
             return new ResponseEntity<>(new SendMessageResponse(null, e.getMessage(), false),
