@@ -42,4 +42,7 @@ All you need at this stage is to run the application
 - [x] Use Kafka for sending messages
 - [x] Easy deploying
 - [x] OpenApi specs
-- [ ] Add tests
+- [x] Add unit test for the main points
+- [ ] Future suggestions:
+  - [ ] Test system parts individually
+  - [ ] E2E Test (Cucumber maybe?)
