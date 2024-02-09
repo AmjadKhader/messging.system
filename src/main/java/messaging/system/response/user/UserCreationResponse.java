@@ -1,9 +1,9 @@
 package messaging.system.response.user;
 
-import messaging.system.model.user.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import messaging.system.model.user.User;
 
 @Data
 @AllArgsConstructor

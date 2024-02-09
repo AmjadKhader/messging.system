@@ -1,9 +1,9 @@
 package messaging.system.repository;
 
 
-import messaging.system.model.message.UserMessageEntity;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
+import messaging.system.model.message.UserMessageEntity;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;

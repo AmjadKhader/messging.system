@@ -20,12 +20,12 @@ public class UserMessageEntity implements Serializable {
     @Column(name = "id")
     private Integer id;
 
+    @Column(name = "text")
+    private String text;
+
     @Column(name = "sender")
     private String sender;
 
     @Column(name = "receiver")
     private String receiver;
-
-    @Column(name = "text")
-    private String text;
 }

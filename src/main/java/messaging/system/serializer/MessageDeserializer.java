@@ -1,7 +1,7 @@
 package messaging.system.serializer;
 
-import messaging.system.model.message.Message;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import messaging.system.model.message.Message;
 import org.apache.kafka.common.errors.SerializationException;
 import org.apache.kafka.common.serialization.Deserializer;
 
