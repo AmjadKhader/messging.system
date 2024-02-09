@@ -19,7 +19,7 @@ import static messaging.system.constant.Constants.MESSAGE_IS_BLANK;
 import static messaging.system.constant.Constants.SAME_SENDER_AND_RECEIVER;
 
 @RestController()
-@RequestMapping("/message")
+@RequestMapping("/api/messaging-system/message")
 public class MessageController {
 
     @Autowired

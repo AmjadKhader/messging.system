@@ -19,14 +19,14 @@ import java.util.Objects;
 import static org.apache.logging.log4j.util.Strings.isBlank;
 
 @RestController()
-@RequestMapping("/users")
+@RequestMapping("/api/messaging-system/user")
 public class UserController {
 
     @Autowired
     UserService userService;
 
 
-    @PostMapping(value = "create", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "add", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> createUser(@RequestBody User user) {
         try {
             if (Objects.isNull(user)) {
