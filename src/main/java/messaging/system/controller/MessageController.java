@@ -26,10 +26,10 @@ public class MessageController {
     MessageService messageService;
 
     // Send message to user
-    @PostMapping(value = "send/{sender_id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "send", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> sendMessage(
             @RequestBody MessageRequest messageBody,
-            @PathVariable("sender_id") String senderId
+            @RequestHeader("user_id") String senderId
     ) {
         try {
             if (Objects.isNull(messageBody) || messageBody.getMessage().isBlank()) {
@@ -53,8 +53,8 @@ public class MessageController {
     }
 
     // View all messages I sent
-    @GetMapping(value = "view/send/{user_id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> retrieveMessagesISent(@PathVariable("user_id") String userId) {
+    @GetMapping(value = "view/send", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> retrieveMessagesISent(@RequestHeader("user_id") String userId) {
         try {
             return new ResponseEntity<>(new UserMessagesResponse(
                     messageService.getUserSentMessages(userId), "", true),
@@ -70,8 +70,8 @@ public class MessageController {
     }
 
     // View all messages I received
-    @GetMapping(value = "view/receive/{user_id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> retrieveMessagesIReceived(@PathVariable("user_id") String userId) {
+    @GetMapping(value = "view/receive", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> retrieveMessagesIReceived(@RequestHeader("user_id") String userId) {
         try {
             return new ResponseEntity<>(new UserMessagesResponse(
                     messageService.getUserMessages(userId), "", true),
@@ -87,9 +87,9 @@ public class MessageController {
     }
 
     // View all messages I received from particular user
-    @GetMapping(value = "view/{user_id}/receive/{sender_id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "view/receive/{sender_id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> retrieveMessagesIReceivedFromUser(
-            @PathVariable("user_id") String userId,
+            @RequestHeader("user_id") String userId,
             @PathVariable("sender_id") String senderId
     ) {
         try {
