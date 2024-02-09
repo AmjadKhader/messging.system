@@ -1,0 +1,165 @@
+openapi: "3.1.0"
+info:
+  title: Messaging system API specs
+  version: 1.0.0
+paths:
+    /api/messaging-system/user/add:
+      post:
+        tags:
+          - Create User
+        summary: Add a new user
+        description: Add a new user
+        requestBody:
+          description: Create a new user
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Create User'
+          required: true
+        responses:
+          default:
+            $ref: '#/components/schemas/Create User'
+          '200':
+            description: User has been created
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    $ref: '#/components/schemas/Create User'
+
+
+    /api/messaging-system/message/send/{sender_id}:
+      post:
+        tags:
+          - Messages
+        summary: Send new message
+        description: Send new message
+        parameters:
+          - in: path
+            name: sender_id
+            schema:
+              type: integer
+            required: true
+        requestBody:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Send Message Request'
+        responses:
+          default:
+            $ref: '#/components/schemas/Send Message Request'
+          '204':
+            description: OK
+
+    /api/messaging-system/message/view/send/{user_id}:
+      get:
+        tags:
+          - Messages
+        summary: View all messages I sent
+        description: View all messages I sent
+        parameters:
+          - in: path
+            name: user_id
+            schema:
+              type: integer
+            required: true
+        responses:
+          default:
+            $ref: '#/components/schemas/Message'
+          '200':
+            description: List of messages I sent
+            content:
+              application/json:
+                schema:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/Message'
+
+    /api/messaging-system/message/view/receive/{user_id}:
+      get:
+        tags:
+          - Messages
+        summary: View all messages I received
+        description: View all messages I received
+        parameters:
+          - in: path
+            name: user_id
+            schema:
+              type: integer
+            required: true
+        responses:
+          default:
+            $ref: '#/components/schemas/Message'
+          '200':
+            description: List of messages I received
+            content:
+              application/json:
+                schema:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/Message'
+
+    /api/messaging-system/message/view/{user_id}/receive/{sender_id}:
+      get:
+        tags:
+          - Messages
+        summary: List of messages I received from certain user
+        description: List of messages I received from certain user
+        parameters:
+          - in: path
+            name: user_id
+            schema:
+              type: integer
+            required: true
+          - in: path
+            name: sender_id
+            schema:
+              type: integer
+            required: true
+        responses:
+          default:
+            $ref: '#/components/schemas/Message'
+          '200':
+            description: List of messages I received from certain user
+            content:
+              application/json:
+                schema:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/Message'
+
+components:
+  schemas:
+    Create User:
+      type: object
+      properties:
+        username:
+          type: string
+          example: Amjad Khader
+        nickname:
+          type: string
+          example: AmjadKhader
+
+    Send Message Request:
+      type: object
+      properties:
+        text:
+          type: string
+          example: Hello!
+        receiver:
+          type: int
+          example: 1
+
+    Message:
+      type: object
+      properties:
+        text:
+          type: string
+          example: Hello!
+        receiver:
+          type: string
+          example: John
+        sender:
+          type: string
+          example: AmjadKhader

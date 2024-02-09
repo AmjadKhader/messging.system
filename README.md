@@ -41,5 +41,5 @@ All you need at this stage is to run the application
 
 - [x] Use Kafka for sending messages
 - [x] Easy deploying
+- [x] OpenApi specs
 - [ ] Add tests
-- [ ] OpenApi specs 
