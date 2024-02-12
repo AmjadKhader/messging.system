@@ -26,7 +26,7 @@ public class MessageController {
     MessageService messageService;
 
     // Send message to user
-    @PostMapping(value = "send", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping(value = "send", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> sendMessage(
             @RequestBody MessageRequest messageBody,
             @RequestHeader("user_id") String senderId
