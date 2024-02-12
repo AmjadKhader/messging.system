@@ -4,7 +4,7 @@ info:
   version: 1.0.0
 paths:
     /api/messaging-system/user/add:
-      post:
+      put:
         tags:
           - Create User
         summary: Add a new user
@@ -30,7 +30,7 @@ paths:
 
 
     /api/messaging-system/message/send/{sender_id}:
-      post:
+      put:
         tags:
           - Messages
         summary: Send new message
