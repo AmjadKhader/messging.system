@@ -1,8 +1,5 @@
 package messaging.system.controller;
 
-import messaging.system.exception.AccountAlreadyExistException;
-import messaging.system.exception.GeneralException;
-import messaging.system.exception.WrongInputException;
 import messaging.system.model.user.User;
 import messaging.system.response.user.UserCreationResponse;
 import messaging.system.service.UserService;
@@ -28,23 +25,14 @@ public class UserController {
 
     @PutMapping(value = "add", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> createUser(@RequestBody User user) {
-        try {
-            if (Objects.isNull(user)) {
-                return new ResponseEntity<>(new UserCreationResponse(null,
-                        "Body request is mandatory", false),
-                        HttpStatus.BAD_REQUEST);
-            }
-
-            return new ResponseEntity<>(new UserCreationResponse(
-                    userService.createUser(user), "", true),
-                    HttpStatus.OK);
-
-        } catch (AccountAlreadyExistException | WrongInputException e) {
-            return new ResponseEntity<>(new UserCreationResponse(null, e.getMessage(), false),
+        if (Objects.isNull(user)) {
+            return new ResponseEntity<>(new UserCreationResponse(null,
+                    "Body request is mandatory", false),
                     HttpStatus.BAD_REQUEST);
-        } catch (GeneralException e) {
-            return new ResponseEntity<>(new UserCreationResponse(null, e.getMessage(), false),
-                    HttpStatus.INTERNAL_SERVER_ERROR);
         }
+
+        return new ResponseEntity<>(new UserCreationResponse(
+                userService.createUser(user), "", true),
+                HttpStatus.OK);
     }
 }

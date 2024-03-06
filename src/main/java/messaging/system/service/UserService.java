@@ -1,7 +1,6 @@
 package messaging.system.service;
 
 import messaging.system.exception.AccountAlreadyExistException;
-import messaging.system.exception.GeneralException;
 import messaging.system.exception.WrongInputException;
 import messaging.system.model.user.User;
 import messaging.system.model.user.UserEntity;
@@ -40,14 +39,12 @@ public class UserService {
             }
 
             if (!validator.isNicknameValid(user.getNickname().toLowerCase())) {
-                throw new GeneralException(INVALID_NICKNAME_EXCEPTION_MESSAGE);
+                throw new WrongInputException(INVALID_NICKNAME_EXCEPTION_MESSAGE);
             }
             userRepository.save(new UserEntity(user.getNickname().toLowerCase(), user.getUsername()));
             return user;
         } catch (AccountAlreadyExistException accountAlreadyExistException) {
             throw new AccountAlreadyExistException(accountAlreadyExistException.getMessage());
-        } catch (Exception e) {
-            throw new GeneralException(e.getMessage());
         }
     }
 }
