@@ -1,0 +1,23 @@
+server:
+  port: ${SERVER_PORT_PROD:8080}
+
+spring:
+  datasource:
+    url: jdbc:postgresql://${DB_HOST_PROD}:${DB_PORT_PROD}/postgres
+    username: ${DB_USERNAME_PROD}
+    password: ${DB_PASSWORD_PROD}
+jpa:
+  properties:
+    hibernate:
+      jdbc:
+        lob:
+          non_contextual_creation: true
+        dialect: org.hibernate.dialect.PostgreSQLDi
+      ddl-auto: none
+
+  #Flyway properties
+  flyway:
+    enabled: true
+    url: jdbc:postgresql://${DB_HOST}:${DB_PORT}/postgres
+    username: ${DB_USERNAME_PROD}
+    password: ${DB_PASSWORD_PROD}
