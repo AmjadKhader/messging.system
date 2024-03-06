@@ -7,7 +7,6 @@ import messaging.system.model.message.Message;
 import messaging.system.model.message.UserMessage;
 import messaging.system.repository.UserMessageRepository;
 import messaging.system.utils.Validator;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,12 +18,17 @@ import static messaging.system.constant.Constants.USER_NOT_FOUND_EXCEPTION_MESSA
 @Service
 public class MessageService {
 
-    @Autowired
-    UserMessageRepository messageRepository;
-    @Autowired
-    MessageProducer messageProducer;
-    @Autowired
-    Validator validator;
+    private final UserMessageRepository messageRepository;
+    private final MessageProducer messageProducer;
+    private final Validator validator;
+
+    public MessageService(UserMessageRepository messageRepository,
+                          MessageProducer messageProducer,
+                          Validator validator) {
+        this.messageRepository = messageRepository;
+        this.messageProducer = messageProducer;
+        this.validator = validator;
+    }
 
     public void sendMessage(String senderId, String receiverId, String messageBody) {
         try {

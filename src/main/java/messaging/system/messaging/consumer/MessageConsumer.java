@@ -4,14 +4,17 @@ import messaging.system.model.message.Message;
 import messaging.system.model.message.MessageEntity;
 import messaging.system.repository.MessageRepository;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
 
 @Component
 public class MessageConsumer {
-    @Autowired
-    MessageRepository messageRepository;
+
+    private final MessageRepository messageRepository;
+
+    public MessageConsumer(MessageRepository messageRepository) {
+        this.messageRepository = messageRepository;
+    }
 
     @KafkaListener(topics = "messages", groupId = "messages")
     public void listen(ConsumerRecord<String, Message> message) {

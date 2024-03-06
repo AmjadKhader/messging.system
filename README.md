@@ -44,7 +44,7 @@ All you need at this stage is to run the application
 - [x] OpenApi specs
 - [x] Add unit test for the main points
 - [ ] Future suggestions:
-  - [ ] Test system parts individually
-  - [ ] E2E Test (Cucumber maybe?)
-  - [ ] Move Kafka configuration to yaml file
-  - [ ] More generic Kafka producer and consumer
+    - [ ] Test system parts individually
+    - [ ] E2E Test (Cucumber maybe?)
+    - [ ] Move Kafka configuration to yaml file
+    - [ ] More generic Kafka producer and consumer

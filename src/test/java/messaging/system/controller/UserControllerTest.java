@@ -1,6 +1,5 @@
 package messaging.system.controller;
 
-import messaging.system.controller.UserController;
 import messaging.system.model.user.User;
 import messaging.system.service.UserService;
 import org.junit.jupiter.api.Assertions;
@@ -11,7 +10,8 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.http.ResponseEntity;
 
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.any;
+import static org.mockito.Mockito.when;
 
 class UserControllerTest {
     @Mock

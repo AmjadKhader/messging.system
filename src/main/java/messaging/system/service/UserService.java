@@ -7,7 +7,6 @@ import messaging.system.model.user.User;
 import messaging.system.model.user.UserEntity;
 import messaging.system.repository.UserRepository;
 import messaging.system.utils.Validator;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Objects;
@@ -18,10 +17,14 @@ import static org.apache.logging.log4j.util.Strings.isBlank;
 @Service
 public class UserService {
 
-    @Autowired
-    UserRepository userRepository;
-    @Autowired
-    Validator validator;
+    private final UserRepository userRepository;
+    private final Validator validator;
+
+    public UserService(UserRepository userRepository,
+                       Validator validator) {
+        this.userRepository = userRepository;
+        this.validator = validator;
+    }
 
     public User createUser(User user) {
         try {

@@ -7,7 +7,6 @@ import messaging.system.request.MessageRequest;
 import messaging.system.response.message.SendMessageResponse;
 import messaging.system.response.message.UserMessagesResponse;
 import messaging.system.service.MessageService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -22,8 +21,12 @@ import static messaging.system.constant.Constants.SAME_SENDER_AND_RECEIVER_EXCEP
 @RequestMapping("/api/messaging-system/message")
 public class MessageController {
 
-    @Autowired
-    MessageService messageService;
+    private final MessageService messageService;
+
+    public MessageController(MessageService messageService) {
+        this.messageService = messageService;
+    }
+
 
     // Send message to user
     @PutMapping(value = "send", produces = MediaType.APPLICATION_JSON_VALUE)

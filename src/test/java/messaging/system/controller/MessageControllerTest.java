@@ -1,6 +1,5 @@
 package messaging.system.controller;
 
-import messaging.system.controller.MessageController;
 import messaging.system.model.message.UserMessage;
 import messaging.system.request.MessageRequest;
 import messaging.system.service.MessageService;
